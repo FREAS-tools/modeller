@@ -23,15 +23,13 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      # Clone and link the dependency (mirrors your Dockerfile)
-      - name: Clone freas-bpmn4frss-library
+      - name: Install dependencies
         run: |
           git clone https://github.com/FREAS-tools/freas-bpmn4frss-library.git
           cd freas-bpmn4frss-library/src
           npm install
           npm link
-      - name: Install project dependencies
-        run: |
+          cd ../..
           npm install
           npm link freas-bpmn4frss-library
       - name: Build Vite app
