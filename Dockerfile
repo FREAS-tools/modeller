@@ -1,4 +1,4 @@
-FROM node:18.16.0-slim as base
+FROM node:20.12.2-slim as base
 
 FROM base as build
 
@@ -25,6 +25,13 @@ ENV VITE_HOST=0.0.0.0
 
 WORKDIR /app
 COPY --from=build /app /app
+
+# Fix the link
+WORKDIR /app/freas-bpmn4frss-library/src
+RUN npm link
+WORKDIR /app
+RUN npm link freas-bpmn4frss-library
+
 RUN chown -R node:node /app
 
 USER node
