@@ -23,24 +23,23 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - name: Build Vite app
+      - name: Build library
         run: |
           git clone https://github.com/FREAS-tools/freas-bpmn4frss-library.git
           cd freas-bpmn4frss-library/src
+          rm -rf node_modules
           npm install
+          npx tsc --build
           npm link
           cd ../..
-          npm install
-          npm link freas-bpmn4frss-library
       - name: Build Vite app
         env:
           VITE_PORT: 8080
           VITE_HOST: 0.0.0.0
           VITE_VALIDATION_ANALYZER_URL: "https://freas-analyzer-validity.onrender.com"
         run: |
-          cd freas-bpmn4frss-library/src
-          npx vite build
-          cd ../..
+          npm install
+          npm link freas-bpmn4frss-library
           npx vite build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
