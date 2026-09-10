@@ -120,6 +120,13 @@ const Bpmn4FrssModeler: React.FC<Bpmn4FrssModelerProps> = (
               }}
             />
             <Button 
+              caption="Demo diagram"
+              onClick={async () => {
+                const newDiagram = await library?.loadDemoDiagram();
+                setDiagram(newDiagram);
+              }}
+            />
+            <Button 
               caption="Download XML"
               onClick={
                 async () => (
